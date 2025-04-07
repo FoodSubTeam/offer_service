@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: offer-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: offer-service
+  template:
+    metadata:
+      labels:
+        app: offer-service
+    spec:
+      containers:
+        - name: offer-service
+          image: offer-service
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: database_url
