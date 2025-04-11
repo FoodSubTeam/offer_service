@@ -17,3 +17,9 @@ deploy:
       - ./configuration/deployment.yaml
       - ./configuration/service.yaml
       - ./configuration/database.yaml
+
+portForward:
+  - resourceType: service
+    resourceName: offer-service
+    port: 80
+    localPort: 8000
