@@ -13,9 +13,12 @@ offer_meal_table = Table(
 class Offer(Base):
     __tablename__ = "offers"
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    name = Column(String)
-    duration = Column(Integer)  # days
-    pricePerDay = Column(Float)
+    name = Column(String, nullable=False)
+    duration = Column(Integer, default=30, nullable=False)  # days
+    price = Column(Float, nullable=False)
+    price_id = Column(String, nullable=False)  # From stripe
+    product_id = Column(String, nullable=False)
+    kitchen_id = Column(Integer, nullable=False)
     meals = relationship("Meal", secondary=offer_meal_table, cascade="all, delete")
 
 
@@ -23,5 +26,8 @@ class Meal(Base):
     __tablename__ = "meals"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    name = Column(String)
-    description = Column(String)
+    meal_code = Column(String, nullable=False)
+    name = Column(String, nullable=False)
+    description = Column(String, nullable=False)
+    notes = Column(String)
+    quantity = Column(Integer, nullable=False)
