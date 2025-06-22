@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.routes import router
 from app.database import engine
 from app.models import Base
@@ -8,6 +9,14 @@ import logging
 import asyncio
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8082"],
+    allow_credentials=True,
+    allow_methods=["*"],    # or specify ['GET', 'POST', 'OPTIONS']
+    allow_headers=["*"],    # or specify headers you expect
+)
 
 app.include_router(router)
 
